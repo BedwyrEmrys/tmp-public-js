@@ -11,8 +11,9 @@
 // ==/UserScript==
 
 function speedcontrol() {
+    let cur_url = document.URL;
     let speed23 = document.getElementById("speed_2-3");
-    if (!speed23) {
+    if (!speed23 && cur_url.includes("watch")) {
         // 速度级别
         var speeds = [2.25,2.5,2.75,3];
 
