@@ -13,32 +13,60 @@
 function speedcontrol() {
     let cur_url = document.URL;
     let speed23 = document.getElementById("speed_2-3");
-    if (!speed23 && cur_url.includes("watch")) {
-        // 速度级别
-        var speeds = [2.25,2.5,2.75,3];
 
+    if (!speed23 && cur_url.includes("watch")) {
         // 创建速度按钮
         var container = document.createElement("div");
         container.setAttribute("id", "speed_2-3");
-        container.style.cssText = "display: flex;align-items: center;";
-        speeds.forEach(function(x) {
-            var btn = document.createElement("button");
-            btn.textContent = x + "x";
-            btn.onclick = function() {
-                const videoPlayer = document.querySelector('.video-stream');
-                videoPlayer.playbackRate = x;
-                console.log('Playback speed increased to 5x');
+        container.style.cssText = "display: flex;justify-content: center;align-items: center;";
 
-            }
-            container.appendChild(btn);
-        });
+        // 创建按钮
+        var btn = document.createElement("button");
+        btn.style.cssText = "display: flex;border: none;border-radius: 20px;align-items: center;";
+
+        // 左侧减号
+        var minusBtn = document.createElement("span");
+        minusBtn.style.cssText = "flex: 1;margin: 10px;"
+        minusBtn.textContent = "-";
+        minusBtn.onclick = function () {
+            updatePlaybackRate(-0.2);
+        };
+
+        // 中间显示当前速度
+        var currentSpeedDisplay = document.createElement("span");
+        currentSpeedDisplay.style.cssText = "flex: 1;margin: 10px;"
+        currentSpeedDisplay.textContent = "1.0x";
+
+        // 右侧加号
+        var plusBtn = document.createElement("span");
+        plusBtn.style.cssText = "flex: 1;margin: 10px;"
+        plusBtn.textContent = "+";
+        plusBtn.onclick = function () {
+            updatePlaybackRate(0.2);
+        };
+
+        // 将所有元素添加到按钮中
+        btn.appendChild(minusBtn);
+        btn.appendChild(currentSpeedDisplay);
+        btn.appendChild(plusBtn);
+
+        container.appendChild(btn);
 
         // 插入页面
         var subscribeButton = document.getElementById("owner");
         subscribeButton.insertAdjacentElement('afterend', container);
 
+        // 更新播放速度函数
+        function updatePlaybackRate(increment) {
+            const videoPlayer = document.querySelector('.video-stream');
+            videoPlayer.playbackRate = parseFloat(videoPlayer.playbackRate) + increment;
+            currentSpeedDisplay.textContent = videoPlayer.playbackRate.toFixed(2) + "x";
+            console.log('player speed  ' + videoPlayer.playbackRate.toFixed(2) + 'x');
+        }
     }
 }
+
+
 
 (function() {
     'use strict';
