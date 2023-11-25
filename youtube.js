@@ -29,7 +29,7 @@ function speedcontrol() {
         minusBtn.style.cssText = "flex: 1;margin: 10px;"
         minusBtn.textContent = "-";
         minusBtn.onclick = function () {
-            updatePlaybackRate(-0.2);
+            updatePlaybackRate(-0.4);
         };
 
         // 中间显示当前速度
@@ -42,7 +42,7 @@ function speedcontrol() {
         plusBtn.style.cssText = "flex: 1;margin: 10px;"
         plusBtn.textContent = "+";
         plusBtn.onclick = function () {
-            updatePlaybackRate(0.2);
+            updatePlaybackRate(0.4);
         };
 
         // 将所有元素添加到按钮中
